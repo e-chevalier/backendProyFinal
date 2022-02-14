@@ -1,14 +1,14 @@
+import 'dotenv/config'
 import express from 'express';
 import { Contenedor } from './Contenedor.js'
 
 const app = express()
 
-const PORT = 8080
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('node_modules/bootstrap/dist'))
 
+const PORT = nodeprocess.env.PORT || process.env.PORT_DEV
 
 app.set('views', './views'); // especifica el directorio de vistas
 app.set('view engine', 'ejs'); // registra el motor de plantillas
