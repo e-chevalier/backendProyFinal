@@ -11,7 +11,7 @@
     <div class="container">
         <h3 class="fs-2 text-primary my-4 py-4">Vistas de productos</h3>
 
-        <form action="/productos" method="post">
+        <form action="/api/productos" method="post">
             <div class="d-grid gap-2 col-6 mx-auto my-4 py-4">
                 <button type="submit" class="btn btn-outline-success btn-lg">Cargar producto</button>
             </div>
@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% productos.forEach( prod=> { %>
+                    <% products.forEach( prod=> { %>
                         <tr>
                             <td>
                                 <%= prod.title %>
