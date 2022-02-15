@@ -1,62 +1,32 @@
 [
   {
+    "id": 1,
+    "timestamp":1644947630919,
     "title": "Cereza",
-    "price": 124.5,
+    "description": "Cerezas dulces y de color rojo oscuro",
+    "code": "fruit",
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_cerejas-128.png",
-    "id": 1
+    "price": 124.5,
+    "stock": 50
   },
   {
+    "id": 2,
+    "timestamp":1644947630919,
     "title": "Manzana",
-    "price": 125,
+    "description": "Manzanas dulces y de color rojo oscuro, de tamaño medio.",
+    "code": "fruit",
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_maca-128.png",
-    "id": "2"
+    "price": 200.5,
+    "stock": 66
   },
   {
+    "id": 3,
+    "timestamp":1644947630919,
     "title": "Banana",
-    "price": 714.5,
+    "description": "Banana del Ecuador, dulces y sabrosas.",
+    "code": "fruit",
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_banana-128.png",
-    "id": 4
-  },
-  {
-    "title": "Frutilla",
-    "price": 14.5,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_morango-128.png",
-    "id": 3
-  },
-  {
-    "title": "Uvas",
-    "price": 124.5,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_uvas-128.png",
-    "id": 5
-  },
-  {
-    "title": "Palta",
-    "price": 124.5,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_abacate-128.png",
-    "id": 6
-  },
-  {
-    "title": "Pera",
-    "price": 124.5,
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_pera-128.png",
-    "id": 7
-  },
-  {
-    "title": "Limon",
-    "price": "80.05",
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_limao-128.png",
-    "id": 8
-  },
-  {
-    "title": "Sandia",
-    "price": "600",
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_melancia-128.png",
-    "id": 9
-  },
-  {
-    "title": "Coco",
-    "price": "700",
-    "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_coco-128.png",
-    "id": 10
+    "price": 150.5,
+    "stock": 75
   }
 ]

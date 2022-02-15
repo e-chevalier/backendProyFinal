@@ -41,7 +41,7 @@ const fakeApiOne = (id) => productos.filter(prod => prod.id == id)
 productosRouters.get('/:id?', (req, res) => {
     if (req.params.id) {
         console.log(`GET => id: ${req.params.id} -- productosRouters`);
-        res.render('page/productList', {productos: fakeApiOne(req.params.id), isEmpty: fakeApi().length? false:true})
+        res.render('page/productList', {productos: fakeApiOne(req.params.id), isEmpty: fakeApiOne(req.params.id).length? false:true})
     } else {
         console.log(`GET ALL -- productosRouters`);
         res.render('page/productList', {productos: fakeApi(), isEmpty: fakeApi().length? false:true})
