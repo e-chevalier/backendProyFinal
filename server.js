@@ -8,7 +8,7 @@ const carritoRouters = express.Router()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static('node_modules/bootstrap/dist'))
+app.use('/bootstrap', express.static('node_modules/bootstrap/dist'))
 app.use('/api/productos', productosRouters)
 app.use('/api/carrito', carritoRouters)
 
@@ -22,6 +22,8 @@ const server = app.listen(PORT, () => {
                  Open link to http://127.0.0.1:${server.address().port}`)
 })
 
+console.log(server.address())
+
 server.on("error", error => console.log(`Error en servidor ${error}`))
 
 
@@ -30,13 +32,20 @@ const productos = await contenedor.getAll()
 //productos.length = 0
 
 const fakeApi = () => productos
+const fakeApiOne = (id) => productos.filter(prod => prod.id == id) 
 
 /**
  *  Productos EndPoint - Users and Admin
  */
 
-productosRouters.get('/:id?', (req, res) => { 
-    res.render('page/productList', {productos: fakeApi(), isEmpty: fakeApi().length? false:true})
+productosRouters.get('/:id?', (req, res) => {
+    if (req.params.id) {
+        console.log(`GET => id: ${req.params.id} -- productosRouters`);
+        res.render('page/productList', {productos: fakeApiOne(req.params.id), isEmpty: fakeApi().length? false:true})
+    } else {
+        console.log(`GET ALL -- productosRouters`);
+        res.render('page/productList', {productos: fakeApi(), isEmpty: fakeApi().length? false:true})
+    }
 })
 
 /**
@@ -44,6 +53,7 @@ productosRouters.get('/:id?', (req, res) => {
  */
 
 productosRouters.post('/', (req, res) => {
+    console.log(`POST -- productosRouters`);
     let prod = req.body
     if ( Object.keys(prod).length !== 0 && prod.title !== '' && prod.price !== '' && prod.thumbnail !== '') {
         const max = productos.reduce((a,b) => a.id > b.id ? a:b, {id: 0} )
@@ -51,15 +61,32 @@ productosRouters.post('/', (req, res) => {
         productos.push(prod)
         contenedor.save(prod) 
     }
-    res.render('page/form')
+    res.json(prod)
+    //res.render('page/form')
 })
 
-productosRouters.put('/:id', (req, res) => { 
-    res.json({status: "PUT"})
+productosRouters.put('/:id', (req, res) => {
+    console.log(`PUT => id: ${req.params.id} -- productosRouters`);
+    let prod = req.body
+    let id = req.params.id
+    let index = productos.findIndex(prod => prod.id == id)
+    if ( index >= 0) {
+        prod.id = id
+        productos[index] = prod
+        contenedor.updateById(id, prod)
+    }
+    res.json(index >= 0 ? {id: id}: {error: 'Producto no encontrado.'})
 })
 
 productosRouters.delete('/:id', (req, res) => {
-    res.json({status: "DELETE"})
+    console.log(`DELETE => id: ${req.params.id} -- productosRouters`);
+    let id = req.params.id
+    let index = productos.findIndex(prod => prod.id == id)
+    if (index >= 0 ) { 
+        productos.splice(index, 1)
+        contenedor.deleteById(id)
+    }
+    res.json(index >= 0 ? {id: id}: {error: 'Producto no encontrado.'})
 })
 
 
