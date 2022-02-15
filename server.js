@@ -27,10 +27,12 @@ const server = app.listen(PORT, (err) => {
     }
 })
 
-console.log(server.address())
-
 server.on("error", error => console.log(`Error en servidor ${error}`))
 
+/**
+ * Variable that determines if the user is an administrator or not. 
+ */
+let administrator = true
 
 /**
  * Container instance 
@@ -73,7 +75,7 @@ productsRouters.get('/:id?', (req, res) => {
 productsRouters.post('/', (req, res) => {
     console.log(`POST -- productsRouters`);
     let prod = req.body
-    
+
     if (Object.keys(prod).length !== 0 && !Object.values(prod).includes('')) {
         const max = products.reduce((a, b) => a.id > b.id ? a : b, { id: 0 })
         prod.id = max.id + 1
@@ -91,6 +93,7 @@ productsRouters.put('/:id', (req, res) => {
     let prod = req.body
     let id = req.params.id
     let index = products.findIndex(prod => prod.id == id)
+
     if (index >= 0) {
         prod.id = id
         products[index] = prod
@@ -103,6 +106,7 @@ productsRouters.delete('/:id', (req, res) => {
     console.log(`DELETE => id: ${req.params.id} -- productsRouters`);
     let id = req.params.id
     let index = products.findIndex(prod => prod.id == id)
+
     if (index >= 0) {
         products.splice(index, 1)
         contenedor.deleteById(id)
@@ -115,8 +119,17 @@ productsRouters.delete('/:id', (req, res) => {
  *  Carrito EndPoints
  */
 
-cartsRouters.post('', (req, res) => {
-    res.json({ status: "POST CREATE CART RETURN ID", id: 12 })
+cartsRouters.post('/', (req, res) => {
+    
+    let newCart = {}
+    const max = carts.reduce((a, b) => a.id > b.id ? a : b, { id: 0 })
+    newCart.id = max.id + 1
+    newCart.timestamp = Date.now()
+    newCart.products = []
+    carts.push(newCart)
+    cartsContainer.save(newCart)
+    
+    res.json({ status: "POST CREATE CART RETURN ID", id: newCart.id })
 })
 
 cartsRouters.delete('/:id', (req, res) => {
@@ -140,7 +153,7 @@ cartsRouters.delete('/:id/products/:id_prod', (req, res) => {
  * Undefined endpoint
  */
 app.all('*', (req, res) => {
-    res.json({ error : -2, descripcion: `ruta ${req.url} método ${req.method} no implementada`})
+    res.json({ error: -2, descripcion: `Ruta ${req.url} método ${req.method} no implementada.` })
 })
 
 
