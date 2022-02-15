@@ -3,12 +3,16 @@ import express from 'express';
 import { Contenedor } from './Contenedor.js'
 
 const app = express()
+const productosRouters = express.Router()
+const carritoRouters = express.Router()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('node_modules/bootstrap/dist'))
+app.use('/api/productos', productosRouters)
+app.use('/api/carrito', carritoRouters)
 
-const PORT = nodeprocess.env.PORT || process.env.PORT_DEV
+const PORT = process.env.PORT || process.env.PORT_DEV
 
 app.set('views', './views'); // especifica el directorio de vistas
 app.set('view engine', 'ejs'); // registra el motor de plantillas
@@ -27,11 +31,19 @@ const productos = await contenedor.getAll()
 
 const fakeApi = () => productos
 
-app.get('/productos', (req, res) => { 
+/**
+ *  Productos EndPoint - Users and Admin
+ */
+
+productosRouters.get('/:id?', (req, res) => { 
     res.render('page/productList', {productos: fakeApi(), isEmpty: fakeApi().length? false:true})
 })
 
-app.post('/productos', (req, res) => {
+/**
+ *  Productos EndPoints - ADMIN ONLY
+ */
+
+productosRouters.post('/', (req, res) => {
     let prod = req.body
     if ( Object.keys(prod).length !== 0 && prod.title !== '' && prod.price !== '' && prod.thumbnail !== '') {
         const max = productos.reduce((a,b) => a.id > b.id ? a:b, {id: 0} )
@@ -42,7 +54,38 @@ app.post('/productos', (req, res) => {
     res.render('page/form')
 })
 
+productosRouters.put('/:id', (req, res) => { 
+    res.json({status: "PUT"})
+})
 
+productosRouters.delete('/:id', (req, res) => {
+    res.json({status: "DELETE"})
+})
+
+
+/**
+ *  Carrito EndPoints
+ */
+
+carritoRouters.post('', (req, res) => {
+    res.json({status: "POST CREATE CART RETURN ID", id: 12})
+})
+
+carritoRouters.delete('/:id', (req, res) => {
+    res.json({status: `DELETE CART WITH ID: ${req.params.id}` })
+})
+
+carritoRouters.get('/:id/productos', (req, res) => {
+    res.json({status: "GET PRODUCTOS FROM CART", id: req.params.id})
+})
+
+carritoRouters.post('/:id/productos', (req, res) => {
+    res.json({status: "POST PRODUCTOS TO CART", id: req.params.id})
+})
+
+carritoRouters.delete('/:id/productos/:id_prod', (req, res) => {
+    res.json({status: `DELETE PRODUCTO IDPROD: ${req.params.id_prod}  FROM CART ID: ${req.params.id_prod}`, id: req.params.id, id_prod: req.params.id})
+})
 
 
 
