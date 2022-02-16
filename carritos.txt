@@ -21,11 +21,6 @@
     ]
   },
   {
-    "id": 3,
-    "timestamp": 1644967811568,
-    "products": []
-  },
-  {
     "id": 4,
     "timestamp": 1644967909313,
     "products": []

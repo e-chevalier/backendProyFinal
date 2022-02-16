@@ -120,7 +120,7 @@ productsRouters.delete('/:id', (req, res) => {
  */
 
 cartsRouters.post('/', (req, res) => {
-    
+    console.log(`POST CrearCarrito-- cartsRouters`);
     let newCart = {}
     const max = carts.reduce((a, b) => a.id > b.id ? a : b, { id: 0 })
     newCart.id = max.id + 1
@@ -129,22 +129,34 @@ cartsRouters.post('/', (req, res) => {
     carts.push(newCart)
     cartsContainer.save(newCart)
     
-    res.json({ status: "POST CREATE CART RETURN ID", id: newCart.id })
+    res.json({ status: "OK", description: "POST CREATE CART RETURN ID", id: newCart.id })
 })
 
 cartsRouters.delete('/:id', (req, res) => {
-    res.json({ status: `DELETE CART WITH ID: ${req.params.id}` })
+    console.log(`DELETE Carrito => id: ${req.params.id} -- cartsRouters`);
+    let id = req.params.id
+    let index = carts.findIndex(cart => cart.id == id)
+
+    if (index >= 0) {
+        carts.splice(index, 1)
+        cartsContainer.deleteById(id)
+    }
+    res.json(index >= 0 ? { status: "OK", description: `DELETE CART WITH ID: ${id}`, id: id } : { error: 'Producto no encontrado.' })
 })
 
-cartsRouters.get('/:id/products', (req, res) => {
-    res.json({ status: "GET products FROM CART", id: req.params.id })
+cartsRouters.get('/:id/productos', (req, res) => {
+    console.log(`GET Productos => id: ${req.params.id} -- cartsRouters`);
+    let id = req.params.id
+    let index = carts.findIndex(cart => cart.id == id)
+
+    res.json(index >= 0 ? { status: "OK", description: `GET CART WITH ID: ${id}`, cart: carts[index] } : { error: 'Producto no encontrado.' })
 })
 
-cartsRouters.post('/:id/products', (req, res) => {
+cartsRouters.post('/:id/productos', (req, res) => {
     res.json({ status: "POST products TO CART", id: req.params.id })
 })
 
-cartsRouters.delete('/:id/products/:id_prod', (req, res) => {
+cartsRouters.delete('/:id/productos/:id_prod', (req, res) => {
     res.json({ status: `DELETE PRODUCTO IDPROD: ${req.params.id_prod}  FROM CART ID: ${req.params.id_prod}`, id: req.params.id, id_prod: req.params.id })
 })
 

@@ -104,7 +104,7 @@ class CartContainer {
 
         try {
             const carts = await this.getAll()
-            await fs.promises.writeFile(this.fileName, JSON.stringify(carts.filter( cart => cart.id !== id), null, 2))
+            await fs.promises.writeFile(this.fileName, JSON.stringify(carts.filter( cart => cart.id != id), null, 2))
                         
         } catch (error) {
             console.log(error)

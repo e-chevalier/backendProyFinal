@@ -104,7 +104,7 @@ class Contenedor {
 
         try {
             const productos = await this.getAll()
-            await fs.promises.writeFile(this.fileName, JSON.stringify(productos.filter( prod => prod.id !== id), null, 2))
+            await fs.promises.writeFile(this.fileName, JSON.stringify(productos.filter( prod => prod.id != id), null, 2))
                         
         } catch (error) {
             console.log(error)
