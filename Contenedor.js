@@ -131,7 +131,7 @@ class Contenedor {
             if ( index >= 0) {
                 prod.id = id
                 productos[index] = prod
-                await fs.promises.writeFile(this.fileName, JSON.stringify(productos))
+                await fs.promises.writeFile(this.fileName, JSON.stringify(productos, null, 2))
             }  
         } catch (error) {
             console.log(error)   

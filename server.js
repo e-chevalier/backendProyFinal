@@ -141,7 +141,7 @@ cartsRouters.delete('/:id', (req, res) => {
         carts.splice(index, 1)
         cartsContainer.deleteById(id)
     }
-    res.json(index >= 0 ? { status: "OK", description: `DELETE CART WITH ID: ${id}`, id: id } : { error: 'Producto no encontrado.' })
+    res.json(index >= 0 ? { status: "OK", description: `DELETE CART WITH ID: ${id}`, id: id } : { error: 'Carrito no encontrado.' })
 })
 
 cartsRouters.get('/:id/productos', (req, res) => {
@@ -149,15 +149,38 @@ cartsRouters.get('/:id/productos', (req, res) => {
     let id = req.params.id
     let index = carts.findIndex(cart => cart.id == id)
 
-    res.json(index >= 0 ? { status: "OK", description: `GET CART WITH ID: ${id}`, cart: carts[index] } : { error: 'Producto no encontrado.' })
+    res.json(index >= 0 ? { status: "OK", description: `GET CART WITH ID: ${id}`, cart: carts[index] } : { error: 'Carrito no encontrado.' })
 })
 
 cartsRouters.post('/:id/productos', (req, res) => {
-    res.json({ status: "POST products TO CART", id: req.params.id })
+    console.log(`POST Carrito => id: ${req.params.id} -- cartsRouters`);
+    
 })
 
 cartsRouters.delete('/:id/productos/:id_prod', (req, res) => {
-    res.json({ status: `DELETE PRODUCTO IDPROD: ${req.params.id_prod}  FROM CART ID: ${req.params.id_prod}`, id: req.params.id, id_prod: req.params.id })
+    console.log(`DELETE Productos IDPROD: ${req.params.id_prod}  FROM CART ID: ${req.params.id} -- cartsRouters`)
+    let id_cart = req.params.id
+    let id_prod = req.params.id_prod
+    let index_prod = -1
+    let index_cart = carts.findIndex(cart => cart.id == id_cart)
+    let response = {}
+   
+    if ( index_cart >= 0 ) {
+        index_prod = carts[index_cart].products.findIndex(prod => prod.id == id_prod)
+        if (index_prod >= 0 ) {
+            carts[index_cart].products.splice(index_prod, 1)
+            response = { status: "OK", description: `DELETE ID_PROD: ${id_prod} FROM ID_CART: ${id_cart}`}
+            //Save to file
+            cartsContainer.updateById(id_cart, carts[index_cart])
+            //carts[index_cart].products.forEach(e => console.log(e) )
+        } else {
+            response = { error: `Producto ID:${id_prod} no encontrado en el carrito ID:${id_cart} .` }
+        }
+    } else {
+        response = { error: `Carrito ID:${id_cart} no encontrado.` }
+    }
+
+    res.json(response)
 })
 
 

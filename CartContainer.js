@@ -131,7 +131,7 @@ class CartContainer {
             if ( index >= 0) {
                 cart.id = id
                 carts[index] = cart
-                await fs.promises.writeFile(this.fileName, JSON.stringify(carts))
+                await fs.promises.writeFile(this.fileName, JSON.stringify(carts, null, 2))
             }  
         } catch (error) {
             console.log(error)   
