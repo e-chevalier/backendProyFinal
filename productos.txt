@@ -30,13 +30,23 @@
     "stock": 75
   },
   {
-    "title": "Sandia",
+    "title": "Sandia Dulce",
     "description": "Sandia dulce y fresca para comer en este verano.",
     "code": "SummerFruit",
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_melancia-128.png",
     "price": "500",
     "stock": "49",
-    "id": 4,
+    "id": "4",
     "timestamp": 1644965522273
+  },
+  {
+    "title": "Pera",
+    "description": "Pera dulce y fresca para comer en este verano.",
+    "code": "SummerFruit",
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_abacate-128.png",
+    "price": "250",
+    "stock": "59",
+    "id": "41",
+    "timestamp": 1645064240523
   }
 ]

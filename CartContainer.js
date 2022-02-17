@@ -19,7 +19,7 @@ class CartContainer {
                 const carts = await this.getAll()
                 // Initial values object with id:0 for empty array case.
                 const max = carts.reduce((a,b) => a.id > b.id ? a:b, {id: 0} )
-                res = max.id
+                res = Number(max.id)
             } else {
                 console.log("getMaxId: ARCHIVO VACIO")
             }

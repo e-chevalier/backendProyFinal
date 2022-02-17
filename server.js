@@ -75,17 +75,22 @@ productsRouters.get('/:id?', (req, res) => {
 productsRouters.post('/', (req, res) => {
     console.log(`POST -- productsRouters`);
     let prod = req.body
+    let response = {}
 
     if (Object.keys(prod).length !== 0 && !Object.values(prod).includes('')) {
         const max = products.reduce((a, b) => a.id > b.id ? a : b, { id: 0 })
-        prod.id = max.id + 1
+        prod.id = Number(max.id) + 1
         prod.timestamp = Date.now()
         products.push(prod)
+        //Save to file
         contenedor.save(prod)
+        response = { status: "ok", id: prod.id}
+    } else {
+        response = { error: 'Algunos campos del producto no fueron completados.' }
     }
 
-    //res.json(prod)
-    res.render('page/form')
+    res.json(response)
+    //res.render('page/form')
 })
 
 productsRouters.put('/:id', (req, res) => {
@@ -97,6 +102,7 @@ productsRouters.put('/:id', (req, res) => {
     if (index >= 0) {
         prod.id = id
         products[index] = prod
+        //Save to file
         contenedor.updateById(id, prod)
     }
     res.json(index >= 0 ? { id: id } : { error: 'Producto no encontrado.' })
@@ -109,6 +115,7 @@ productsRouters.delete('/:id', (req, res) => {
 
     if (index >= 0) {
         products.splice(index, 1)
+        //Save to file
         contenedor.deleteById(id)
     }
     res.json(index >= 0 ? { id: id } : { error: 'Producto no encontrado.' })
@@ -123,10 +130,11 @@ cartsRouters.post('/', (req, res) => {
     console.log(`POST CrearCarrito-- cartsRouters`);
     let newCart = {}
     const max = carts.reduce((a, b) => a.id > b.id ? a : b, { id: 0 })
-    newCart.id = max.id + 1
+    newCart.id = Number(max.id) + 1
     newCart.timestamp = Date.now()
     newCart.products = []
     carts.push(newCart)
+    //Save to file
     cartsContainer.save(newCart)
     
     res.json({ status: "OK", description: "POST CREATE CART RETURN ID", id: newCart.id })
@@ -139,6 +147,7 @@ cartsRouters.delete('/:id', (req, res) => {
 
     if (index >= 0) {
         carts.splice(index, 1)
+        //Save to file
         cartsContainer.deleteById(id)
     }
     res.json(index >= 0 ? { status: "OK", description: `DELETE CART WITH ID: ${id}`, id: id } : { error: 'Carrito no encontrado.' })
@@ -154,6 +163,28 @@ cartsRouters.get('/:id/productos', (req, res) => {
 
 cartsRouters.post('/:id/productos', (req, res) => {
     console.log(`POST Carrito => id: ${req.params.id} -- cartsRouters`);
+    let id_prod = req.body.id_prod
+    let id_cart = req.params.id
+    let index_cart = carts.findIndex(cart => cart.id == id_cart)
+    let index_prod = products.findIndex( prod => prod.id == id_prod)
+    let response = {}
+
+    if ( index_cart >= 0 ) {
+        if ( index_prod >= 0 ) {
+            carts[index_cart].products.push(products[index_prod])
+            //Save to file
+            cartsContainer.updateById(id_cart, carts[index_cart])
+            response = { status: "OK", description: `POST ADD ID_PROD: ${id_prod} INTO ID_CART: ${id_cart}`}
+            //carts[index_cart].products.forEach(e => console.log(e) )
+        } else {
+            response = { error: `Producto ID:${id_prod} no encontrado.` }
+        }  
+    } else {
+        response = { error: `Carrito ID:${id_cart} no encontrado.` }
+    }
+
+    res.json(response)
+
     
 })
 
@@ -161,9 +192,9 @@ cartsRouters.delete('/:id/productos/:id_prod', (req, res) => {
     console.log(`DELETE Productos IDPROD: ${req.params.id_prod}  FROM CART ID: ${req.params.id} -- cartsRouters`)
     let id_cart = req.params.id
     let id_prod = req.params.id_prod
-    let index_prod = -1
     let index_cart = carts.findIndex(cart => cart.id == id_cart)
     let response = {}
+    let index_prod = -1
    
     if ( index_cart >= 0 ) {
         index_prod = carts[index_cart].products.findIndex(prod => prod.id == id_prod)
