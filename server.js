@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import express from 'express';
+import express, { response } from 'express'
 import { Contenedor } from './Contenedor.js'
 import { CartContainer } from './CartContainer.js'
 
@@ -15,12 +15,12 @@ app.use('/api/carrito', cartsRouters)
 
 const PORT = process.env.PORT || process.env.PORT_DEV
 
-app.set('views', './views'); // especifica el directorio de vistas
-app.set('view engine', 'ejs'); // registra el motor de plantillas
+app.set('views', './views') // especifica el directorio de vistas
+app.set('view engine', 'ejs') // registra el motor de plantillas
 
 const server = app.listen(PORT, (err) => {
     if (err) {
-        console.log("Error while starting server");
+        console.log("Error while starting server")
     } else {
         console.log(`Servidor http escuchando en el puerto ${server.address().port}
                  Open link to http://127.0.0.1:${server.address().port}`)
@@ -58,13 +58,10 @@ const fakeApiOne = (id) => products.filter(prod => prod.id == id)
  */
 
 productsRouters.get('/:id?', (req, res) => {
-    if (req.params.id) {
-        console.log(`GET => id: ${req.params.id} -- productsRouters`);
-        res.render('page/productList', { products: fakeApiOne(req.params.id), isEmpty: fakeApiOne(req.params.id).length ? false : true })
-    } else {
-        console.log(`GET ALL -- productsRouters`);
-        res.render('page/productList', { products: fakeApi(), isEmpty: fakeApi().length ? false : true })
-    }
+    console.log(`GET ${req.params.id? "WITH ID => id: " + req.params.id : "ALL => "} -- productsRouters`)
+    let filteredArray = req.params.id ? products.filter(prod => prod.id == req.params.id) : products
+
+    res.json({status: "OK", products: filteredArray, isEmpty: filteredArray.length ?  false : true })
 })
 
 /**
@@ -73,7 +70,7 @@ productsRouters.get('/:id?', (req, res) => {
 
 
 productsRouters.post('/', (req, res) => {
-    console.log(`POST -- productsRouters`);
+    console.log(`POST -- productsRouters`)
     let prod = req.body
     let response = {}
 
@@ -94,7 +91,7 @@ productsRouters.post('/', (req, res) => {
 })
 
 productsRouters.put('/:id', (req, res) => {
-    console.log(`PUT => id: ${req.params.id} -- productsRouters`);
+    console.log(`PUT => id: ${req.params.id} -- productsRouters`)
     let prod = req.body
     let id = req.params.id
     let index = products.findIndex(prod => prod.id == id)
@@ -109,7 +106,7 @@ productsRouters.put('/:id', (req, res) => {
 })
 
 productsRouters.delete('/:id', (req, res) => {
-    console.log(`DELETE => id: ${req.params.id} -- productsRouters`);
+    console.log(`DELETE => id: ${req.params.id} -- productsRouters`)
     let id = req.params.id
     let index = products.findIndex(prod => prod.id == id)
 
@@ -127,7 +124,7 @@ productsRouters.delete('/:id', (req, res) => {
  */
 
 cartsRouters.post('/', (req, res) => {
-    console.log(`POST CrearCarrito-- cartsRouters`);
+    console.log(`POST CrearCarrito-- cartsRouters`)
     let newCart = {}
     const max = carts.reduce((a, b) => a.id > b.id ? a : b, { id: 0 })
     newCart.id = Number(max.id) + 1
@@ -141,7 +138,7 @@ cartsRouters.post('/', (req, res) => {
 })
 
 cartsRouters.delete('/:id', (req, res) => {
-    console.log(`DELETE Carrito => id: ${req.params.id} -- cartsRouters`);
+    console.log(`DELETE Carrito => id: ${req.params.id} -- cartsRouters`)
     let id = req.params.id
     let index = carts.findIndex(cart => cart.id == id)
 
@@ -154,7 +151,7 @@ cartsRouters.delete('/:id', (req, res) => {
 })
 
 cartsRouters.get('/:id/productos', (req, res) => {
-    console.log(`GET Productos => id: ${req.params.id} -- cartsRouters`);
+    console.log(`GET Productos => id: ${req.params.id} -- cartsRouters`)
     let id = req.params.id
     let index = carts.findIndex(cart => cart.id == id)
 
@@ -162,7 +159,7 @@ cartsRouters.get('/:id/productos', (req, res) => {
 })
 
 cartsRouters.post('/:id/productos', (req, res) => {
-    console.log(`POST Carrito => id: ${req.params.id} -- cartsRouters`);
+    console.log(`POST Carrito => id: ${req.params.id} -- cartsRouters`)
     let id_prod = req.body.id_prod
     let id_cart = req.params.id
     let index_cart = carts.findIndex(cart => cart.id == id_cart)
