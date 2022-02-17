@@ -30,7 +30,7 @@
     "stock": 75
   },
   {
-    "title": "Sandia Dulce",
+    "title": "Sandia",
     "description": "Sandia dulce y fresca para comer en este verano.",
     "code": "SummerFruit",
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_melancia-128.png",
@@ -46,7 +46,7 @@
     "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_abacate-128.png",
     "price": "250",
     "stock": "59",
-    "id": "41",
-    "timestamp": 1645064240523
+    "id": 5,
+    "timestamp": 1645134076925
   }
 ]

@@ -1,31 +1,5 @@
 [
   {
-    "id": "1",
-    "timestamp": 1644947376860,
-    "products": [
-      {
-        "id": 3,
-        "timestamp": 1644947630919,
-        "title": "Banana",
-        "description": "Banana del Ecuador, dulces y sabrosas.",
-        "code": "fruit",
-        "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_banana-128.png",
-        "price": 150.5,
-        "stock": 75
-      },
-      {
-        "id": 2,
-        "timestamp": 1644947630919,
-        "title": "Manzana",
-        "description": "Manzanas dulces y de color rojo oscuro, de tamaño medio.",
-        "code": "fruit",
-        "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_maca-128.png",
-        "price": 200.5,
-        "stock": 66
-      }
-    ]
-  },
-  {
     "id": 2,
     "timestamp": 1644947422490,
     "products": [
@@ -62,8 +36,29 @@
     ]
   },
   {
-    "id": 4,
+    "id": "4",
     "timestamp": 1644967909313,
+    "products": [
+      {
+        "title": "Pera Loca",
+        "description": "Pera dulce y fresca para comer en este verano.",
+        "code": "SummerFruit",
+        "thumbnail": "https://cdn3.iconfinder.com/data/icons/fruits-52/150/icon_fruit_abacate-128.png",
+        "price": "250",
+        "stock": "59",
+        "id": 6,
+        "timestamp": 1645139555424
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "timestamp": 1645121389927,
+    "products": []
+  },
+  {
+    "id": 7,
+    "timestamp": 1645131262882,
     "products": []
   }
 ]
