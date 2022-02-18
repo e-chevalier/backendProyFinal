@@ -1,12 +1,14 @@
 import express from 'express'
 import { config } from './config/index.js'
-import { serverRoutes } from './routes/index.js' 
+import { serverRoutes } from './routes/index.js'
+import cors from 'cors'
 
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use('/bootstrap', express.static('node_modules/bootstrap/dist'))
+app.use(cors("*"))
 
 const PORT = config.port
 

@@ -60,5 +60,20 @@
     "id": 7,
     "timestamp": 1645131262882,
     "products": []
+  },
+  {
+    "id": 8,
+    "timestamp": 1645151081286,
+    "products": []
+  },
+  {
+    "id": 9,
+    "timestamp": 1645151081335,
+    "products": []
+  },
+  {
+    "id": null,
+    "timestamp": 1645151091616,
+    "products": []
   }
 ]
