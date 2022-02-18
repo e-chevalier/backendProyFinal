@@ -37,48 +37,5 @@
         "stock": 92
       }
     ]
-  },
-  {
-    "id": 3,
-    "timestamp": 1645200412463,
-    "products": []
-  },
-  {
-    "id": 4,
-    "timestamp": 1645200415924,
-    "products": []
-  },
-  {
-    "id": "5",
-    "timestamp": 1645200503196,
-    "products": [
-      {
-        "id": "1",
-        "title": "Naranja de Ombligo",
-        "price": 60,
-        "description": "Naranja de Ombligo, presentan unos gajos grandes y generosos en jugo, pero también en fibra insoluble, es decir carnosas, lo que las hace más aptas para naranja de mesa que para hacer zumos. También presentan la ventaja para este fin de que casi nunca tienen las incómodas pepitas que nos encontramos en otras variedades al morder.",
-        "thumbnail": "/assets/img/product/1.jpg",
-        "timestamp": 1644947630919,
-        "code": "Frutas",
-        "qty": 0,
-        "stock": 5
-      },
-      {
-        "id": "2",
-        "title": "Manzana Gala",
-        "price": 90,
-        "description": "Este tipo de manzana tiene una piel brillante a rayas o estrías rojas-anaranjadas sobre una base de color amarillenta.Se recomienda comer en crudo, pero también para cocer para hacer tartas y al horno.",
-        "thumbnail": "/assets/img/product/2.jpg",
-        "timestamp": 1644947630919,
-        "code": "Frutas",
-        "qty": 0,
-        "stock": 6
-      }
-    ]
-  },
-  {
-    "id": 6,
-    "timestamp": 1645200541236,
-    "products": []
   }
 ]
