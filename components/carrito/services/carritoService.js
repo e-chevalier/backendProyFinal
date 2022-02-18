@@ -37,7 +37,7 @@ class Carrito {
     }
 
     async postCarritoProducto(id_cart, id_prod) {
-        console.log(`POST Carrito => id: ${id_cart} -- cartsRouters`)
+        console.log(`POST Carrito Add PROD  => idCart: ${id_cart} id_prod: ${id_prod} -- cartsRouters`)
         let index_cart = carts.findIndex(cart => cart.id == id_cart)
         let index_prod = products.findIndex( prod => prod.id == id_prod)
         let response = {}
