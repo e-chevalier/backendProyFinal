@@ -14,7 +14,7 @@ class Productos {
         let response = {}
 
         if (Object.keys(prod).length !== 0 && !Object.values(prod).includes('')) {
-            const max = products.reduce((a, b) => a.id > b.id ? a : b, { id: 0 })
+            const max = products.reduce((a, b) => Number(a.id) > Number(b.id) ? a : b, { id: 0 })
             prod.id = Number(max.id) + 1
             prod.timestamp = Date.now()
             products.push(prod)

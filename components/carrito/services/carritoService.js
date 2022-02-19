@@ -5,7 +5,7 @@ class Carrito {
     async postCarrito() {
         console.log(`POST CrearCarrito-- cartsRouters`)
         let newCart = {}
-        const max = carts.reduce((a, b) => a.id > b.id ? a : b, { id: 0 })
+        const max = carts.reduce((a, b) => Number(a.id) > Number(b.id) ? a : b, { id: 0 })
         newCart.id = Number(max.id) + 1
         newCart.timestamp = Date.now()
         newCart.products = []

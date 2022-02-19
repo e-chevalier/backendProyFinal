@@ -18,7 +18,7 @@ class Contenedor {
             if(stats.size){
                 const productos = await this.getAll()
                 // Initial values object with id:0 for empty array case.
-                const max = productos.reduce((a,b) => a.id > b.id ? a:b, {id: 0} )
+                const max = productos.reduce((a,b) => Number(a.id) > Number(b.id) ? a:b, {id: 0} )
                 res = Number(max.id)
             } else {
                 console.log("getMaxId: ARCHIVO VACIO")
@@ -39,7 +39,7 @@ class Contenedor {
 
         try {
             const productos = await this.getAll()
-            const max = await this.getMaxid()
+            const max = Number(await this.getMaxid())
             productos.push({...obj, id: max + 1})
             await fs.promises.writeFile(this.fileName, JSON.stringify(productos, null, 2))
             return max + 1
