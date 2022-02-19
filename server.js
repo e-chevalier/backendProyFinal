@@ -7,13 +7,10 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use('/bootstrap', express.static('node_modules/bootstrap/dist'))
 app.use(cors("*"))
 
 const PORT = config.port
 
-app.set('views', './views') // especifica el directorio de vistas
-app.set('view engine', 'ejs') // registra el motor de plantillas
 
 serverRoutes(app)
 
